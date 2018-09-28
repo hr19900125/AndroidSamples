@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/navigation_home"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/navigation_home" />
+
+        <item
+            android:id="@+id/navigation_codesnippet"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/navigation_codesnippet" />
+
+        <item
+            android:id="@+id/navigation_item_example"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/navigation_example" />
+
+        <item
+            android:id="@+id/navigation_item_concurrent"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/navigation_concurrent" />
+
+        <item
+            android:id="@+id/navigation_item_design_pattern"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/navigation_design_pattern" />
+
+        <item
+            android:id="@+id/navigation_item_framework"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/navigation_framework" />
+
+        <item
+            android:id="@+id/navigation_item_RxJava"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/navigation_rxjava" />
+
+        <item
+            android:id="@+id/navigation_item_Realm"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/navigation_realm" />
+
+        <item
+            android:id="@+id/navigation_item_GreenDao"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/navigation_greendao" />
+
+        <item
+            android:id="@+id/navigation_item_webview"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/navigation_webview" />
+
+        <item
+            android:id="@+id/navigation_item_wiki"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/navigation_wiki" />
+
+        <item
+            android:id="@+id/navigation_item_widget"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/navigation_widget" />
+
+        <item
+            android:id="@+id/navigation_item_animation"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/navigation_animation" />
+
+        <item
+            android:id="@+id/navigation_item_blog"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/navigation_blog" />
+
+        <item
+            android:id="@+id/navigation_item_about"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/navigation_about" />
+
+    </group>
+</menu>
