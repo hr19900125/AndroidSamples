@@ -7,12 +7,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.hr.toy.animation.AnimationExampleFragment;
 import com.hr.toy.appframework.AppFrameworkExampleFragment;
 import com.hr.toy.blog.BlogFragment;
@@ -22,10 +25,15 @@ import com.hr.toy.design.DesignExampleFragment;
 import com.hr.toy.example.ExampleFragment;
 import com.hr.toy.home.HomeFragment;
 import com.hr.toy.realm.RealmExampleFragment;
+import com.hr.toy.router.Subject;
 import com.hr.toy.rxjava.RxJavaExampleFragment;
+import com.hr.toy.utils.FileUtils;
 import com.hr.toy.webview.WebViewFragment;
 import com.hr.toy.widget.WidgetFragment;
 import com.hr.toy.wiki.WikiFragment;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
 
 public class HomeActivity extends AppCompatActivity implements BaseFragment.OnSelectedFragmentDelegate {
 
@@ -34,14 +42,13 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnSe
     private Toolbar mToolbar;
     private NavigationView mNavigationView;
     private BaseFragment mSelectedFragment;
-
-    private static final int ANIM_DURATION_TOOLBAR = 300;
+    private Subjects mSubjects;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        mSubjects = loadSubjects();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
@@ -49,12 +56,33 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnSe
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
-        setupDrawerContent(mNavigationView);
-
+        setupNavigationView(mNavigationView, mSubjects);
+//        setupDrawerContent(mNavigationView);
         setUpProfileImage();
+    }
 
-//        switchToExample();
+    private Subjects loadSubjects() {
+        try {
+            Type type = new TypeToken<Subjects>() {
+            }.getType();
+            Subjects result = new Gson().fromJson(FileUtils.readFileFromAssert("page_config.json"), type);
+            if (result != null) {
+                for (Subject subject : result) {
+                    subject.setId(View.generateViewId());
+                }
+            }
+            Log.e("Home", new Gson().toJson(result));
+            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new Subjects();
+    }
 
+    private void setupNavigationView(NavigationView navigationView, Subjects subjects) {
+        for(Subject subject : subjects) {
+            navigationView.getMenu().add(0, subject.getId(), subject.getId(), subject.getName()).setIcon(R.drawable.ic_favorite);
+        }
     }
 
     private void switchToHome() {
@@ -199,9 +227,9 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnSe
         profileView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchToBlog();
+//                switchToBlog();
                 mDrawerLayout.closeDrawers();
-                mNavigationView.getMenu().getItem(1).setChecked(true);
+                mNavigationView.getMenu().getItem(0).setChecked(true);
             }
         });
     }

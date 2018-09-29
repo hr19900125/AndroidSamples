@@ -11,7 +11,7 @@ public class BaseFragment extends Fragment implements OnBackPressedListener {
     protected OnSelectedFragmentDelegate mOnSelectedFragmentDelegate;
 
     public interface OnSelectedFragmentDelegate {
-        public void setupSelectedFragment(BaseFragment fragment);
+        void setupSelectedFragment(BaseFragment fragment);
     }
 
     @Override
