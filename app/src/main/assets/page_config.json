@@ -1,6 +1,7 @@
 [
   {
     "name": "Code snippet",
+    "fragmentClass" : "com.hr.toy.SubjectFragment",
     "pages": [
       {
         "title": "FileObserver",
@@ -26,6 +27,7 @@
   },
   {
     "name": "例子",
+    "fragmentClass" : "com.hr.toy.SubjectFragment",
     "pages": [
       {
         "title": "Activity生命周期",
@@ -71,6 +73,7 @@
   },
   {
     "name": "架构设计",
+    "fragmentClass": "com.hr.toy.SubjectFragment",
     "pages": [
       {
         "title": "Timber + Logback",
@@ -80,6 +83,7 @@
   },
   {
     "name": "RxJava",
+    "fragmentClass": "com.hr.toy.SubjectFragment",
     "pages": [
       {
         "title": "Hello world",
@@ -117,6 +121,7 @@
   },
   {
     "name": "控件",
+    "fragmentClass": "com.hr.toy.SubjectFragment",
     "pages": [
       {
         "title": "Android自定义View属性(attr)",
@@ -162,6 +167,7 @@
   },
   {
     "name": "动画",
+    "fragmentClass": "com.hr.toy.SubjectFragment",
     "pages": [
       {
         "title": "Alpha Animation",

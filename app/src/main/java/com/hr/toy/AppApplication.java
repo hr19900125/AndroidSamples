@@ -3,11 +3,6 @@ package com.hr.toy;
 import android.app.Application;
 import android.content.Context;
 
-import com.hr.toy.realm.RealmConstant;
-
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
-
 /**
  *
  */
@@ -26,8 +21,8 @@ public class AppApplication extends Application {
     public void onCreate() {
         super.onCreate();
         application = this;
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).name(RealmConstant.MEALM_NAME).deleteRealmIfMigrationNeeded().schemaVersion(RealmConstant.VERSION).build();
-        Realm.setDefaultConfiguration(realmConfiguration);
+//        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).name(RealmConstant.MEALM_NAME).deleteRealmIfMigrationNeeded().schemaVersion(RealmConstant.VERSION).build();
+//        Realm.setDefaultConfiguration(realmConfiguration);
 
 //        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, ENCRYPTED ? "notes-db-encrypted" : "notes-db");
 //        Database db = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();

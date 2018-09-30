@@ -97,8 +97,6 @@
 
         <activity android:name=".design.mvp.MvpMainActivity" />
 
-        <activity android:name=".realm.RealmHelloWorldActivity" />
-
         <!--<activity android:name="com.sc.samples.gen.NoteActivity" />-->
 
         <activity android:name=".webview.HelloWebViewActivity" />

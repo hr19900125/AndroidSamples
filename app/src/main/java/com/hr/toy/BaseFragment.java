@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 /**
  *
  */
-public class BaseFragment extends Fragment implements OnBackPressedListener {
+public abstract class BaseFragment extends Fragment implements OnBackPressedListener {
 
     protected OnSelectedFragmentDelegate mOnSelectedFragmentDelegate;
 
