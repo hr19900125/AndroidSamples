@@ -174,7 +174,7 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnSe
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-                Subject subject = mSubjects.get(item.getItemId());
+                Subject subject = mSubjects.getSubject(item.getItemId());
                 if(subject == null) return true;
                 switchToFragment(subject);
                 item.setChecked(true);
