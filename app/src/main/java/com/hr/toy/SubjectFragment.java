@@ -49,14 +49,14 @@ public class SubjectFragment extends BaseFragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        MyDividerItemDecoration itemDecoration = new MyDividerItemDecoration(getActivity());
-        itemDecoration.setDividerPadding(new MyDividerItemDecoration.DividerPadding() {
-            @Override
-            public int[] getDividerPadding(int position) {
-                return new int[]{48, 48};
-            }
-        });
-        recyclerView.addItemDecoration(itemDecoration);
+//        MyDividerItemDecoration itemDecoration = new MyDividerItemDecoration(getActivity());
+//        itemDecoration.setDividerPadding(new MyDividerItemDecoration.DividerPadding() {
+//            @Override
+//            public int[] getDividerPadding(int position) {
+//                return new int[]{48, 48};
+//            }
+//        });
+//        recyclerView.addItemDecoration(itemDecoration);
 
         mAdapter = new ListAdapter(mSubject.getPages());
         mAdapter.setOnItemClickListener(new ListAdapter.OnItemClickListener() {

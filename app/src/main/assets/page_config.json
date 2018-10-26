@@ -4,24 +4,12 @@
     "fragmentClass" : "com.hr.toy.SubjectFragment",
     "pages": [
       {
-        "title": "FileObserver",
-        "pageClass": "com.hr.toy.codesnippet.FileObserverActivity"
-      },
-      {
-        "title": "获取应用签名",
-        "pageClass": "com.hr.toy.codesnippet.ApkSignaturesActivity"
-      },
-      {
         "title": "SQLite SDCard",
         "pageClass": "com.hr.toy.codesnippet.SQLiteSDCardActivity"
       },
       {
         "title": "监听网络状态变化",
         "pageClass": "com.hr.toy.codesnippet.NetworkStateChangeActivity"
-      },
-      {
-        "title": "运行一次就关闭的线程池",
-        "pageClass": "com.hr.toy.codesnippet.OnceThreadPoolActivity"
       }
     ]
   },

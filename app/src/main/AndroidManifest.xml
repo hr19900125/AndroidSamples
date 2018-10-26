@@ -59,11 +59,8 @@
 
         <activity android:name=".wiki.ArticleActivity" />
 
-        <activity android:name=".codesnippet.FileObserverActivity" />
-        <activity android:name=".codesnippet.ApkSignaturesActivity" />
         <activity android:name=".codesnippet.SQLiteSDCardActivity" />
         <activity android:name=".codesnippet.NetworkStateChangeActivity" />
-        <activity android:name=".codesnippet.OnceThreadPoolActivity" />
 
         <activity android:name=".widget.custom.CustomViewActivity" />
         <activity android:name=".widget.custom.CustomViewActivity2" />
