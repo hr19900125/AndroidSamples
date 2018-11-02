@@ -69,7 +69,9 @@
         <activity android:name=".widget.RecyclerViewExample2Activity" />
         <activity android:name=".widget.SwipeRefreshLayoutExampleActivity" />
         <activity android:name=".widget.WaterRippleViewActivity" />
-        <activity android:name=".widget.ZoomImageViewActivity" android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".widget.ZoomImageViewActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".animation.AlphaAnimationExampleActivity" />
         <activity android:name=".animation.ScaleAnimationExampleActivity" />
@@ -100,6 +102,7 @@
 
         <activity android:name=".appframework.LogFrameActivity" />
 
+        <activity android:name="com.hr.toy.design.dagger.DaggerActivity" />
     </application>
 
 </manifest>
