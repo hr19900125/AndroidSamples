@@ -12,10 +12,10 @@ public interface TodoComponent {
 
     void inject(ListsFragment fragment);
 
-//    void inject(ItemsFragment fragment);
+    void inject(ItemsFragment fragment);
 
-//    void inject(NewItemFragment fragment);
+    void inject(NewItemFragment fragment);
 
-//    void inject(NewListFragment fragment);
+    void inject(NewListFragment fragment);
 
 }

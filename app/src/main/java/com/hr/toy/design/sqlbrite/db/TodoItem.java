@@ -6,7 +6,7 @@ import android.os.Parcelable;
 
 import com.google.auto.value.AutoValue;
 
-import java.util.function.Function;
+import io.reactivex.functions.Function;
 
 @AutoValue
 public abstract class TodoItem implements Parcelable {
