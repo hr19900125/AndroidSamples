@@ -2,9 +2,8 @@ package com.hr.toy.rxjava;
 
 import com.hr.toy.BaseActivity;
 
-import rx.Observable;
-import rx.functions.Action1;
-
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 /**
  * RxJava Hello world
@@ -17,9 +16,9 @@ public class HelloWorldActivity extends BaseActivity {
     }
 
     private void hello(String... names) {
-        Observable.from(names).subscribe(new Action1<String>() {
+        Observable.fromArray(names).subscribe(new Consumer<String>() {
             @Override
-            public void call(String s) {
+            public void accept(String s) throws Exception {
                 printlnToTextView(s);
             }
         });

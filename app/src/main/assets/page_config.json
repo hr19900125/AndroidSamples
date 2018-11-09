@@ -74,6 +74,10 @@
       {
         "title": "Mvp",
         "pageClass": "com.hr.toy.design.mvp.MvpMainActivity"
+      },
+      {
+        "title": "Sqlbrite",
+        "pageClass": "com.hr.toy.design.sqlbrite.SqlbriteMainActivity"
       }
     ]
   },

@@ -2,13 +2,17 @@ package com.hr.toy.rxjava;
 
 import com.hr.toy.BaseActivity;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Action1;
-import rx.functions.Func0;
-import rx.functions.Func1;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 /**
  * RxJava 创建操作
@@ -33,32 +37,38 @@ public class ObservableCreateOperatorsActivity extends BaseActivity {
     private void create() {
         printlnToTextView("create-------------------------------");
         printlnToTextView("create threadId : " + Thread.currentThread().getId());
-        Observable.create(new Observable.OnSubscribe<Integer>() {
+        Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void call(Subscriber<? super Integer> subscriber) {
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
                 printlnToTextView("call threadId : " + Thread.currentThread().getId());
                 try {
-                    if (!subscriber.isUnsubscribed()) {
+                    if (!emitter.isDisposed()) {
                         for (int i = 0; i < 5; i++) {
-                            subscriber.onNext(i);
+                            emitter.onNext(i);
                         }
-                        subscriber.onCompleted();
+                        emitter.onComplete();
                     }
                 } catch (Exception e) {
-                    subscriber.onError(e);
+                    emitter.onError(e);
                 }
             }
-        }).subscribe(new Subscriber<Integer>() {
-            @Override
-            public void onCompleted() {
-                printlnToTextView("onCompleted threadId : " + Thread.currentThread().getId());
-                printlnToTextView("Sequence complete.");
-            }
+        }).subscribe(new Observer<Integer>() {
 
             @Override
             public void onError(Throwable e) {
                 printlnToTextView("onError threadId : " + Thread.currentThread().getId());
                 printlnToTextView("Error: " + e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                printlnToTextView("onCompleted threadId : " + Thread.currentThread().getId());
+                printlnToTextView("Sequence complete.");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+
             }
 
             @Override
@@ -74,14 +84,14 @@ public class ObservableCreateOperatorsActivity extends BaseActivity {
      */
     private void doOnNext() {
         printlnToTextView("doOnNext-------------------------------");
-        Observable.from(new Integer[]{1, 2, 3, 4}).doOnNext(new Action1<Integer>() {
+        Observable.fromArray(new Integer[]{1, 2, 3, 4}).doOnNext(new Consumer<Integer>() {
             @Override
-            public void call(Integer integer) {
+            public void accept(Integer integer) throws Exception {
                 printlnToTextView(integer + " + 10 = " + (integer + 10));
             }
-        }).take(2).subscribe(new Action1<Integer>() {
+        }).take(2).subscribe(new Consumer<Integer>() {
             @Override
-            public void call(Integer integer) {
+            public void accept(Integer integer) throws Exception {
                 printlnToTextView(String.valueOf(integer));
             }
         });
@@ -108,17 +118,17 @@ public class ObservableCreateOperatorsActivity extends BaseActivity {
             }
 
             public Observable<String> valueObservableWithCreate() {
-                return Observable.create(new Observable.OnSubscribe<String>() {
+                return Observable.create(new ObservableOnSubscribe<String>() {
                     @Override
-                    public void call(Subscriber<? super String> subscriber) {
-                        subscriber.onNext(value);
-                        subscriber.onCompleted();
+                    public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                        emitter.onNext(value);
+                        emitter.onComplete();
                     }
                 });
             }
 
             public Observable<String> valueObservableWithDefer() {
-                return Observable.defer(new Func0<Observable<String>>() {
+                return Observable.defer(new Callable<ObservableSource<? extends String>>() {
                     @Override
                     public Observable<String> call() {
                         return Observable.just(value);
@@ -130,9 +140,9 @@ public class ObservableCreateOperatorsActivity extends BaseActivity {
         SomeType someType = new SomeType();
         Observable<String> value = someType.valueObservableWithJust();
         someType.setValue("hi");
-        value.subscribe(new Action1<String>() {
+        value.subscribe(new Consumer<String>() {
             @Override
-            public void call(String s) {
+            public void accept(String s) throws Exception {
                 printlnToTextView(s);
             }
         });
@@ -142,9 +152,9 @@ public class ObservableCreateOperatorsActivity extends BaseActivity {
         SomeType someType1 = new SomeType();
         Observable<String> value1 = someType1.valueObservableWithCreate();
         someType1.setValue("aaaaa");
-        value1.subscribe(new Action1<String>() {
+        value1.subscribe(new Consumer<String>() {
             @Override
-            public void call(String s) {
+            public void accept(String s) throws Exception {
                 printlnToTextView(s);
             }
         });
@@ -153,9 +163,9 @@ public class ObservableCreateOperatorsActivity extends BaseActivity {
         SomeType someType2 = new SomeType();
         Observable<String> value2 = someType2.valueObservableWithDefer();
         someType2.setValue("bbbb");
-        value2.subscribe(new Action1<String>() {
+        value2.subscribe(new Consumer<String>() {
             @Override
-            public void call(String s) {
+            public void accept(String s) throws Exception {
                 printlnToTextView(s);
             }
         });
@@ -169,9 +179,9 @@ public class ObservableCreateOperatorsActivity extends BaseActivity {
      */
     private void interval() {
         printlnToTextView("interval------------------------------");
-        Observable.interval(1, TimeUnit.SECONDS).subscribe(new Action1<Long>() {
+        Observable.interval(1, TimeUnit.SECONDS).subscribe(new Consumer<Long>() {
             @Override
-            public void call(Long aLong) {
+            public void accept(Long aLong) throws Exception {
                 printlnToTextView("CurrentTime:" + System.currentTimeMillis() + ", value: " + aLong);
             }
         });
@@ -182,9 +192,9 @@ public class ObservableCreateOperatorsActivity extends BaseActivity {
      */
     private void range() {
         printlnToTextView("range------------------------------");
-        Observable.range(5, 10).subscribe(new Action1<Integer>() {
+        Observable.range(5, 10).subscribe(new Consumer<Integer>() {
             @Override
-            public void call(Integer integer) {
+            public void accept(Integer integer) throws Exception {
                 printlnToTextView("CurrentTime:" + System.currentTimeMillis() + ", value: " + integer);
             }
         });
@@ -195,9 +205,9 @@ public class ObservableCreateOperatorsActivity extends BaseActivity {
      */
     private void repeat() {
         printlnToTextView("repeat------------------------------thread id:" + Thread.currentThread().getId());
-        Observable.range(2, 5).repeat(2).subscribe(new Action1<Integer>() {
+        Observable.range(2, 5).repeat(2).subscribe(new Consumer<Integer>() {
             @Override
-            public void call(Integer integer) {
+            public void accept(Integer integer) throws Exception {
                 printlnToTextView("repeat : value = " + integer);
             }
         });
@@ -208,14 +218,14 @@ public class ObservableCreateOperatorsActivity extends BaseActivity {
      */
     private void repeatWhen() {
         printlnToTextView("repeatWhen------------------------------");
-        Observable.range(2, 3).repeatWhen(new Func1<Observable<? extends Void>, Observable<?>>() {
+        Observable.range(2, 3).repeatWhen(new Function<Observable<Object>, ObservableSource<?>>() {
             @Override
-            public Observable<?> call(Observable<? extends Void> observable) {
+            public ObservableSource<?> apply(Observable<Object> objectObservable) throws Exception {
                 return Observable.timer(5, TimeUnit.SECONDS);
             }
-        }).subscribe(new Action1<Integer>() {
+        }).subscribe(new Consumer<Integer>() {
             @Override
-            public void call(Integer integer) {
+            public void accept(Integer integer) throws Exception {
                 printlnToTextView("repeatWhen : value = " + integer);
             }
         });
@@ -226,9 +236,9 @@ public class ObservableCreateOperatorsActivity extends BaseActivity {
      */
     private void timer() {
         printlnToTextView("timer------------------------------");
-        Observable.timer(3, TimeUnit.SECONDS).subscribe(new Action1<Long>() {
+        Observable.timer(3, TimeUnit.SECONDS).subscribe(new Consumer<Long>() {
             @Override
-            public void call(Long aLong) {
+            public void accept(Long aLong) throws Exception {
                 printlnToTextView("time value " + aLong);
             }
         });

@@ -2,11 +2,16 @@ package com.hr.toy.rxjava;
 
 import com.hr.toy.BaseActivity;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Action1;
-import rx.functions.Func3;
-import rx.schedulers.Schedulers;
+import org.reactivestreams.Subscriber;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function3;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * http://blog.csdn.net/xmxkf/article/details/51656736
@@ -25,9 +30,9 @@ public class ObservableCombiningOperatorsActivity extends BaseActivity {
      * 在数据序列的开头插入一条指定的项
      */
     private void startWith() {
-        Observable.just(1, 2, 3).startWith(-1, -2).subscribe(new Action1<Integer>() {
+        Observable.just(1, 2, 3).startWithArray(-1, -2).subscribe(new Consumer<Integer>() {
             @Override
-            public void call(Integer integer) {
+            public void accept(Integer integer) throws Exception {
                 printlnToTextView("startWith value : " + integer);
             }
         });
@@ -44,15 +49,21 @@ public class ObservableCombiningOperatorsActivity extends BaseActivity {
         Observable<Integer> odds = Observable.just(1, 3, 5).subscribeOn(Schedulers.newThread());
         Observable<Integer> evens = Observable.just(2, 4, 6);
 
-        Observable.merge(odds, evens).subscribe(new Subscriber<Integer>() {
-            @Override
-            public void onCompleted() {
-                printlnToTextView("onCompleted");
-            }
+        Observable.merge(odds, evens).subscribe(new Observer<Integer>() {
 
             @Override
             public void onError(Throwable e) {
                 printlnToTextView("onError:" + e);
+            }
+
+            @Override
+            public void onComplete() {
+                printlnToTextView("onCompleted");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+
             }
 
             @Override
@@ -66,38 +77,43 @@ public class ObservableCombiningOperatorsActivity extends BaseActivity {
      * 当发生onError时，会等待其他Observable将数据发射完，然后才将onError发送个观察者
      */
     private void mergeDelayError() {
-        Observable<Integer> odds = Observable.create(new Observable.OnSubscribe<Integer>() {
+        Observable<Integer> odds = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void call(Subscriber<? super Integer> subscriber) {
-                if(subscriber.isUnsubscribed()) return;
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                if (emitter.isDisposed()) return;
                 for (int i = 0; i < 5; i++) {
-                    subscriber.onNext(i);
+                    emitter.onNext(i);
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         });
 
-        Observable<Integer> evens = Observable.create(new Observable.OnSubscribe<Integer>() {
+        Observable<Integer> evens = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void call(Subscriber<? super Integer> subscriber) {
-                if(subscriber.isUnsubscribed())return;
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                if (emitter.isDisposed()) return;
                 for (int i = 0; i < 5; i++) {
-                    subscriber.onNext(i);
-                    if (i == 3) subscriber.onError(new RuntimeException());
+                    emitter.onNext(i);
+                    if (i == 3) emitter.onError(new RuntimeException());
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         });
 
-        Observable.mergeDelayError(odds, evens).subscribe(new Subscriber<Integer>() {
+        Observable.mergeDelayError(odds, evens).subscribe(new Observer<Integer>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+                printlnToTextView("onError : " + e);
+            }
+
+            @Override
+            public void onComplete() {
                 printlnToTextView("onCompleted");
             }
 
             @Override
-            public void onError(Throwable e) {
-                printlnToTextView("onError : " + e);
+            public void onSubscribe(Disposable d) {
+
             }
 
             @Override
@@ -114,36 +130,35 @@ public class ObservableCombiningOperatorsActivity extends BaseActivity {
      * 这个例子只是方便理解，我们假设零件可以复用。
      */
     private void combineLatest() {
-        Observable.combineLatest(getObservable("one->"), getObservable("two->"), getObservable("three->"), new Func3<String, String, String, String>() {
-            //使用一个函数结合它们最近发射的数据，然后发射这个函数的返回值
+        Observable.combineLatest(getObservable("one->"), getObservable("two->"), getObservable("three->"), new Function3<String, String, String, String>() {
             @Override
-            public String call(String s, String s2, String s3) {
+            public String apply(String s, String s2, String s3) throws Exception {
                 return s + "," + s2 + "," + s3;
             }
-        }).subscribe(new Action1<String>() {
+        }).subscribe(new Consumer<String>() {
             @Override
-            public void call(String s) {
-                printlnToTextView("combineLatest:"+s);
+            public void accept(String s) throws Exception {
+                printlnToTextView("combineLatest:" + s);
             }
         });
     }
 
     private Observable<String> getObservable(final String name) {
-        return Observable.create(new Observable.OnSubscribe<String>() {
+        return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void call(Subscriber<? super String> subscriber) {
-                if(subscriber.isUnsubscribed()) return;
-                if(name.contains("-")) {
-                    for (int i = 1;i <= 3; i++) {
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                if (emitter.isDisposed()) return;
+                if (name.contains("-")) {
+                    for (int i = 1; i <= 3; i++) {
                         printlnToTextView(name + i);
-                        subscriber.onNext(name + i);
+                        emitter.onNext(name + i);
                         try {
                             Thread.sleep(100);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
-                    subscriber.onCompleted();
+                    emitter.onComplete();
                 }
             }
         }).subscribeOn(Schedulers.newThread());

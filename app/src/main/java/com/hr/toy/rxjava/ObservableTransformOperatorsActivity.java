@@ -4,18 +4,23 @@ import android.os.SystemClock;
 
 import com.hr.toy.BaseActivity;
 
+import org.reactivestreams.Subscriber;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.Observer;
-import rx.Subscriber;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.functions.Func2;
-import rx.observables.GroupedObservable;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.observables.GroupedObservable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * RxJava 变换操作
@@ -36,21 +41,21 @@ public class ObservableTransformOperatorsActivity extends BaseActivity {
      */
     private void map() {
         printlnToTextView("map-------------------------------");
-        Observable.just("hello world").map(new Func1<String, Integer>() {
+        Observable.just("hello world").map(new Function<String, Integer>() {
             @Override
-            public Integer call(String s) {
+            public Integer apply(String s) throws Exception {
                 printlnToTextView(s);
                 return 5428;
             }
-        }).map(new Func1<Integer, String>() {
+        }).map(new Function<Integer, String>() {
             @Override
-            public String call(Integer integer) {
+            public String apply(Integer integer) throws Exception {
                 printlnToTextView(String.valueOf(integer));
                 return String.valueOf(integer);
             }
-        }).subscribe(new Action1<String>() {
+        }).subscribe(new Consumer<String>() {
             @Override
-            public void call(String s) {
+            public void accept(String s) throws Exception {
                 printlnToTextView(s);
             }
         });
@@ -62,21 +67,22 @@ public class ObservableTransformOperatorsActivity extends BaseActivity {
     private void flatMap() {
         printlnToTextView("flatMap-------------------------------");
         List<String> s = Arrays.asList("hello world 1", "hello world 2", "hello world 3");
-        Observable.just(s).flatMap(new Func1<List<String>, Observable<String>>() {
+        Observable.just(s).flatMap(new Function<List<String>, ObservableSource<String>>() {
             @Override
-            public Observable<String> call(List<String> strings) {
-                return Observable.from(strings);
+            public ObservableSource<String> apply(List<String> strings) throws Exception {
+                return Observable.fromIterable(strings);
             }
-        }).flatMap(new Func1<String, Observable<String>>() {
+
+        }).flatMap(new Function<String, ObservableSource<String>>() {
             @Override
-            public Observable<String> call(String s) {
+            public ObservableSource<String> apply(String s) throws Exception {
                 printlnToTextView("---");
                 printlnToTextView(s);
                 return Observable.just("hi !" + s);
             }
-        }).subscribe(new Action1<String>() {
+        }).subscribe(new Consumer<String>() {
             @Override
-            public void call(String s) {
+            public void accept(String s) throws Exception {
                 printlnToTextView("---");
                 printlnToTextView(s);
             }
@@ -88,9 +94,9 @@ public class ObservableTransformOperatorsActivity extends BaseActivity {
      */
     private void buffer() {
         printlnToTextView("buffer(int)-------------------------------");
-        Observable.range(1, 10).buffer(3).subscribe(new Action1<List<Integer>>() {
+        Observable.range(1, 10).buffer(3).subscribe(new Consumer<List<Integer>>() {
             @Override
-            public void call(List<Integer> integers) {
+            public void accept(List<Integer> integers) throws Exception {
                 printlnToTextView("####");
                 for (int i = 0; i < integers.size(); i++) {
                     printlnToTextView("" + integers.get(i));
@@ -99,9 +105,9 @@ public class ObservableTransformOperatorsActivity extends BaseActivity {
         });
 
         printlnToTextView("buffer(int, int) count > skip-------------------------------");
-        Observable.range(1, 10).buffer(3, 2).subscribe(new Action1<List<Integer>>() {
+        Observable.range(1, 10).buffer(3, 2).subscribe(new Consumer<List<Integer>>() {
             @Override
-            public void call(List<Integer> integers) {
+            public void accept(List<Integer> integers) throws Exception {
                 printlnToTextView("####");
                 for (int i = 0; i < integers.size(); i++) {
                     printlnToTextView("" + integers.get(i));
@@ -110,9 +116,9 @@ public class ObservableTransformOperatorsActivity extends BaseActivity {
         });
 
         printlnToTextView("buffer(int, int) count < skip-------------------------------");
-        Observable.range(1, 10).buffer(2, 3).subscribe(new Action1<List<Integer>>() {
+        Observable.range(1, 10).buffer(2, 3).subscribe(new Consumer<List<Integer>>() {
             @Override
-            public void call(List<Integer> integers) {
+            public void accept(List<Integer> integers) throws Exception {
                 printlnToTextView("####");
                 for (int i = 0; i < integers.size(); i++) {
                     printlnToTextView("" + integers.get(i));
@@ -121,27 +127,31 @@ public class ObservableTransformOperatorsActivity extends BaseActivity {
         });
 
         printlnToTextView("buffer(int, TimeUnit) 周期性发送buffer-------------------------------");
-        Observable.create(new Observable.OnSubscribe<String>() {
+        Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void call(Subscriber<? super String> subscriber) {
-                if (subscriber.isUnsubscribed()) return;
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                if (emitter.isDisposed()) return;
                 while (true) {
-                    subscriber.onNext("消息" + SystemClock.elapsedRealtime());
+                    emitter.onNext("消息" + SystemClock.elapsedRealtime());
                     SystemClock.sleep(2000);//每隔2s发送消息
                 }
-
             }
         }).subscribeOn(Schedulers.io()).
                 buffer(3, TimeUnit.SECONDS).//每隔3秒 取出消息
                 subscribe(new Observer<List<String>>() {
             @Override
-            public void onCompleted() {
+            public void onComplete() {
                 printlnToTextView("-----------------onCompleted:");
             }
 
             @Override
             public void onError(Throwable e) {
                 printlnToTextView("----------------->onError:");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+
             }
 
             @Override
@@ -153,17 +163,17 @@ public class ObservableTransformOperatorsActivity extends BaseActivity {
 
     private void groupBy() {
         printlnToTextView("groupBy-------------------------------");
-        Observable.interval(1, TimeUnit.SECONDS).take(10).groupBy(new Func1<Long, Long>() {
+        Observable.interval(1, TimeUnit.SECONDS).take(10).groupBy(new Function<Long, Object>() {
             @Override
-            public Long call(Long aLong) {
+            public Object apply(Long aLong) throws Exception {
                 return aLong % 4;
             }
-        }).subscribe(new Action1<GroupedObservable<Long, Long>>() {
+        }).subscribe(new Consumer<GroupedObservable<Object, Long>>() {
             @Override
-            public void call(final GroupedObservable<Long, Long> result) {
-                result.subscribe(new Action1<Long>() {
+            public void accept(final GroupedObservable<Object, Long> result) throws Exception {
+                result.subscribe(new Consumer<Long>() {
                     @Override
-                    public void call(Long aLong) {
+                    public void accept(Long aLong) throws Exception {
                         printlnToTextView("key:" + result.getKey() + ",value:" + aLong);
                     }
                 });
@@ -176,14 +186,14 @@ public class ObservableTransformOperatorsActivity extends BaseActivity {
      */
     private void scan() {
         printlnToTextView("scan-------------------------------");
-        Observable.just(1, 2, 3, 4, 5).scan(new Func2<Integer, Integer, Integer>() {
+        Observable.just(1, 2, 3, 4, 5).scan(new BiFunction<Integer, Integer, Integer>() {
             @Override
-            public Integer call(Integer sum, Integer item) {
+            public Integer apply(Integer sum, Integer item) throws Exception {
                 return sum + item;
             }
-        }).subscribe(new Action1<Integer>() {
+        }).subscribe(new Consumer<Integer>() {
             @Override
-            public void call(Integer sum) {
+            public void accept(Integer sum) throws Exception {
                 printlnToTextView("sum = " + sum);
             }
         });
@@ -194,13 +204,13 @@ public class ObservableTransformOperatorsActivity extends BaseActivity {
      */
     private void window() {
         printlnToTextView("window-------------------------------");
-        Observable.interval(1, TimeUnit.SECONDS).take(12).window(3).subscribe(new Action1<Observable<Long>>() {
+        Observable.interval(1, TimeUnit.SECONDS).take(12).window(3).subscribe(new Consumer<Observable<Long>>() {
             @Override
-            public void call(Observable<Long> observable) {
+            public void accept(Observable<Long> observable) throws Exception {
                 printlnToTextView("divide ---");
-                observable.subscribe(new Action1<Long>() {
+                observable.subscribe(new Consumer<Long>() {
                     @Override
-                    public void call(Long aLong) {
+                    public void accept(Long aLong) throws Exception {
                         printlnToTextView(String.valueOf(aLong));
                     }
                 });

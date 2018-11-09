@@ -2,9 +2,9 @@ package com.hr.toy.rxjava;
 
 import com.hr.toy.BaseActivity;
 
-import rx.Observable;
-import rx.functions.Action0;
-import rx.functions.Action1;
+import io.reactivex.Observable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 
 /**
  * 使用RxJava 提供的Action来订阅（subscribe）
@@ -17,23 +17,20 @@ public class SubscribeActionActivity extends BaseActivity {
     }
 
     private void test() {
-        Observable<String> ob = Observable.from(new String[]{"hello world 1", "hello world 2", "hello world 3"});
-        ob.subscribe(new Action1<String>() {
+        Observable<String> ob = Observable.fromArray(new String[]{"hello world 1", "hello world 2", "hello world 3"});
+        ob.subscribe(new Consumer<String>() {
             @Override
-            public void call(String s) {
-                //等同与onNext
+            public void accept(String s) throws Exception {
                 printlnToTextView("onNext:" + s);
             }
-        }, new Action1<Throwable>() {
+        }, new Consumer<Throwable>() {
             @Override
-            public void call(Throwable throwable) {
-                //等同与onError
+            public void accept(Throwable throwable) throws Exception {
                 printlnToTextView("onError");
             }
-        }, new Action0() {
+        }, new Action() {
             @Override
-            public void call() {
-                //等同于onCompleted
+            public void run() throws Exception {
                 printlnToTextView("onCompleted");
             }
         });

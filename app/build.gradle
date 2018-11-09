@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         applicationId "com.hr.toy"
-        minSdkVersion 23
-        targetSdkVersion 28
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.compileSdk
         versionCode 1
         versionName "1.0"
     }
@@ -21,27 +21,36 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support:cardview-v7:+'
+    implementation rootProject.ext.appcompatV7
+    implementation rootProject.ext.design
+    implementation rootProject.ext.cardviewV7
     //rxjava
-    implementation 'io.reactivex:rxandroid:1.1.0'
+    implementation rootProject.ext.rxJava
+    implementation rootProject.ext.rxAndroid
+    implementation rootProject.ext.rxBinding
     //android-logback
-    implementation 'org.slf4j:slf4j-api:1.7.21'
-    implementation 'com.github.tony19:logback-android-core:1.1.1-6'
-    implementation('com.github.tony19:logback-android-classic:1.1.1-6') {
+    implementation rootProject.ext.slf4j
+    implementation rootProject.ext.logbackAndroidCore
+    implementation(rootProject.ext.logbackAndroidClassic) {
         // workaround issue #73
         exclude group: 'com.google.android', module: 'android'
     }
     //timber
-    implementation 'com.jakewharton.timber:timber:4.5.1'
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation rootProject.ext.timber
+    implementation rootProject.ext.gson
 
     //butterknife
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation rootProject.ext.butterknife
+    annotationProcessor rootProject.ext.butterknifeCompiler
 
     //dagger2
-    compile 'com.google.dagger:dagger:2.11'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+    implementation rootProject.ext.dagger2
+    annotationProcessor rootProject.ext.dagger2Compiler
+
+    compileOnly rootProject.ext.autoValue
+    annotationProcessor rootProject.ext.autoValue
+    annotationProcessor rootProject.ext.autoValueParcel
+
+    implementation rootProject.ext.sqlbrite
+    implementation rootProject.ext.supportSqliteFramework
 }

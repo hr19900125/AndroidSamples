@@ -2,8 +2,12 @@ package com.hr.toy.rxjava;
 
 import com.hr.toy.BaseActivity;
 
-import rx.Observable;
-import rx.Subscriber;
+import org.reactivestreams.Subscriber;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * 使用Observable.just可以用来创建只发出一个事件就结束的Observable对象
@@ -17,15 +21,20 @@ public class ObservableJustActivity extends BaseActivity {
 
     private void just() {
         Observable<String> ob = Observable.just("hello world");
-        Subscriber<String> sub = new Subscriber<String>() {
+        Observer<String> sub = new Observer<String>() {
             @Override
-            public void onCompleted() {
+            public void onComplete() {
                 printlnToTextView(mResultTextView, "Subscriber call onCompleted");
             }
 
             @Override
             public void onError(Throwable e) {
                 printlnToTextView(mResultTextView, "Subscriber call onError");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+
             }
 
             @Override

@@ -2,14 +2,19 @@ package com.hr.toy.rxjava;
 
 import com.hr.toy.BaseActivity;
 
+import org.reactivestreams.Subscriber;
+
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Action0;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  *
@@ -42,33 +47,33 @@ public class ObservableFilteringOperatorsActivity extends BaseActivity {
      * 个人理解：就是假如发送A-(time1)-B-(time2)-C，A与B的发送时间间隔为time1，则debounce(int, TimeUnit)的时间为time，相当于过滤掉time1或time2小于time的之前的事件
      */
     private void debounce() {
-        Observable.create(new Observable.OnSubscribe<Integer>() {
+        Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void call(Subscriber<? super Integer> subscriber) {
-                if (subscriber.isUnsubscribed()) return;
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                if (emitter.isDisposed()) return;
                 try {
                     for (int i = 1; i < 10; i++) {
-                        subscriber.onNext(i);
+                        emitter.onNext(i);
                         Thread.sleep(i * 100);
                     }
-                    subscriber.onCompleted();
+                    emitter.onComplete();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-        }).subscribeOn(Schedulers.newThread()).debounce(400, TimeUnit.MILLISECONDS).subscribe(new Action1<Integer>() {
+        }).subscribeOn(Schedulers.newThread()).debounce(400, TimeUnit.MILLISECONDS).subscribe(new Consumer<Integer>() {
             @Override
-            public void call(Integer integer) {
+            public void accept(Integer integer) throws Exception {
                 printlnToTextView("Next:" + integer);
             }
-        }, new Action1<Throwable>() {
+        }, new Consumer<Throwable>() {
             @Override
-            public void call(Throwable throwable) {
+            public void accept(Throwable throwable) throws Exception {
                 printlnToTextView("Error:" + throwable);
             }
-        }, new Action0() {
+        }, new Action() {
             @Override
-            public void call() {
+            public void run() throws Exception {
                 printlnToTextView("onCompleted");
             }
         });
@@ -78,9 +83,9 @@ public class ObservableFilteringOperatorsActivity extends BaseActivity {
      * Distinct的过滤规则是：只允许还没有发射过的数据项通过。
      */
     private void distinct() {
-        Observable.just(1, 2, 2, 1, 3, 3).distinct().subscribe(new Action1<Integer>() {
+        Observable.just(1, 2, 2, 1, 3, 3).distinct().subscribe(new Consumer<Integer>() {
             @Override
-            public void call(Integer integer) {
+            public void accept(Integer integer) throws Exception {
                 printlnToTextView("distinct number: " + integer);
             }
         });
@@ -90,9 +95,9 @@ public class ObservableFilteringOperatorsActivity extends BaseActivity {
      * 只发射第N项数据
      */
     private void elementAt() {
-        Observable.just(1, 2, 3, 4, 5, 6).elementAt(3).subscribe(new Action1<Integer>() {
+        Observable.just(1, 2, 3, 4, 5, 6).elementAt(3).subscribe(new Consumer<Integer>() {
             @Override
-            public void call(Integer integer) {
+            public void accept(Integer integer) throws Exception {
                 printlnToTextView("elementAt value: " + integer);
             }
         });
@@ -103,15 +108,15 @@ public class ObservableFilteringOperatorsActivity extends BaseActivity {
      */
     private void filter() {
         printlnToTextView("filter-------------------------------");
-        Observable.from(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}).filter(new Func1<Integer, Boolean>() {
+        Observable.fromArray(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}).filter(new Predicate<Integer>() {
             @Override
-            public Boolean call(Integer integer) {
+            public boolean test(Integer integer) throws Exception {
                 return integer > 5;
             }
-        }).subscribe(new Action1<Integer>() {
+        }).subscribe(new Consumer<Integer>() {
             @Override
-            public void call(Integer integer) {
-                printlnToTextView(String.valueOf(integer));
+            public void accept(Integer integer) throws Exception {
+
             }
         });
     }
@@ -120,9 +125,9 @@ public class ObservableFilteringOperatorsActivity extends BaseActivity {
      * 只发射第一项（或者满足某个条件的第一项）数据
      */
     private void first() {
-        Observable.just(1, 2, 3, 4).first().subscribe(new Action1<Integer>() {
+        Observable.just(1, 2, 3, 4).first(1).subscribe(new Consumer<Integer>() {
             @Override
-            public void call(Integer integer) {
+            public void accept(Integer integer) throws Exception {
                 printlnToTextView("first value : " + integer);
             }
         });
@@ -132,31 +137,32 @@ public class ObservableFilteringOperatorsActivity extends BaseActivity {
      * 不发射任何数据，只发射Observable的终止通知
      */
     private void ignoreElements() {
-        Observable.just(1, 2, 3).ignoreElements().subscribe(new Action1<Integer>() {
-            @Override
-            public void call(Integer integer) {
-                printlnToTextView("ignoreElements onNext : " + integer);
-            }
-        }, new Action1<Throwable>() {
-            @Override
-            public void call(Throwable throwable) {
-                printlnToTextView("ignoreElements onError : " + throwable);
-            }
-        }, new Action0() {
-            @Override
-            public void call() {
-                printlnToTextView("ignoreElements onCompleted");
-            }
-        });
+//        Observable.just(1, 2, 3).ignoreElements().subscribe(new Consumer<Integer>() {
+//            @Override
+//            public void accept(Integer integer){
+//                printlnToTextView("ignoreElements onNext : " + integer);
+//            }
+//        }, new Consumer<Throwable>() {
+//            @Override
+//            public void accept(Throwable throwable){
+//                printlnToTextView("ignoreElements onError : " + throwable);
+//            }
+//        }, new Action() {
+//
+//            @Override
+//            public void run() throws Exception {
+//                printlnToTextView("ignoreElements onCompleted");
+//            }
+//        });
     }
 
     /**
      * 只发射最后一项（或者满足某个条件的最后一项）数据
      */
     private void last() {
-        Observable.just(1, 2, 3, 4).last().subscribe(new Action1<Integer>() {
+        Observable.just(1, 2, 3, 4).last(1).subscribe(new Consumer<Integer>() {
             @Override
-            public void call(Integer integer) {
+            public void accept(Integer integer) throws Exception {
                 printlnToTextView("last value : " + integer);
             }
         });
@@ -166,32 +172,37 @@ public class ObservableFilteringOperatorsActivity extends BaseActivity {
      * sample操作符定期扫描源Observable产生的结果，在指定的时间间隔范围内对源Observable产生的结果进行采样
      */
     private void sample() {
-        Observable.create(new Observable.OnSubscribe<Integer>() {
+        Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void call(Subscriber<? super Integer> subscriber) {
-                if (subscriber.isUnsubscribed()) return;
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                if (emitter.isDisposed()) return;
                 try {
                     //前8个数字产生的时间间隔为1秒，后一个间隔为3秒
                     for (int i = 1; i < 9; i++) {
-                        subscriber.onNext(i);
+                        emitter.onNext(i);
                         Thread.sleep(1000);
                     }
                     Thread.sleep(2000);
-                    subscriber.onNext(9);
-                    subscriber.onCompleted();
+                    emitter.onNext(9);
+                    emitter.onComplete();
                 } catch (Exception e) {
-                    subscriber.onError(e);
+                    emitter.onError(e);
                 }
             }
-        }).subscribeOn(Schedulers.newThread()).sample(2200, TimeUnit.MILLISECONDS).subscribe(new Subscriber<Integer>() {
+        }).subscribeOn(Schedulers.newThread()).sample(2200, TimeUnit.MILLISECONDS).subscribe(new Observer<Integer>() {
             @Override
-            public void onCompleted() {
+            public void onComplete() {
                 printlnToTextView("onCompleted");
             }
 
             @Override
             public void onError(Throwable e) {
                 printlnToTextView("onError : " + e);
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+
             }
 
             @Override
@@ -205,9 +216,9 @@ public class ObservableFilteringOperatorsActivity extends BaseActivity {
      * 抑制Observable发射的前N项数据
      */
     private void skip() {
-        Observable.just(1, 2, 3, 4, 5, 6, 7).skip(3).subscribe(new Action1<Integer>() {
+        Observable.just(1, 2, 3, 4, 5, 6, 7).skip(3).subscribe(new Consumer<Integer>() {
             @Override
-            public void call(Integer integer) {
+            public void accept(Integer integer) throws Exception {
                 printlnToTextView("skip value : " + integer);
             }
         });
@@ -217,9 +228,9 @@ public class ObservableFilteringOperatorsActivity extends BaseActivity {
      * 抑制Observable发射的后N项数据
      */
     private void skipLast() {
-        Observable.just(1, 2, 3, 4, 5, 6, 7).skipLast(3).subscribe(new Action1<Integer>() {
+        Observable.just(1, 2, 3, 4, 5, 6, 7).skipLast(3).subscribe(new Consumer<Integer>() {
             @Override
-            public void call(Integer integer) {
+            public void accept(Integer integer) throws Exception {
                 printlnToTextView("skipLast value : " + integer);
             }
         });
@@ -230,9 +241,9 @@ public class ObservableFilteringOperatorsActivity extends BaseActivity {
      */
     private void take() {
         printlnToTextView("take-------------------------------");
-        Observable.from(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}).take(4).subscribe(new Action1<Integer>() {
+        Observable.fromArray(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}).take(4).subscribe(new Consumer<Integer>() {
             @Override
-            public void call(Integer integer) {
+            public void accept(Integer integer) throws Exception {
                 printlnToTextView(String.valueOf(integer));
             }
         });
@@ -243,9 +254,9 @@ public class ObservableFilteringOperatorsActivity extends BaseActivity {
      */
     private void takeLast() {
         printlnToTextView("takeLast-------------------------------");
-        Observable.from(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}).takeLast(4).subscribe(new Action1<Integer>() {
+        Observable.fromArray(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}).takeLast(4).subscribe(new Consumer<Integer>() {
             @Override
-            public void call(Integer integer) {
+            public void accept(Integer integer) throws Exception {
                 printlnToTextView(String.valueOf(integer));
             }
         });

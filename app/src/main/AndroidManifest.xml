@@ -103,6 +103,8 @@
         <activity android:name=".appframework.LogFrameActivity" />
 
         <activity android:name="com.hr.toy.design.dagger.DaggerActivity" />
+
+        <activity android:name=".design.sqlbrite.SqlbriteMainActivity" />
     </application>
 
 </manifest>
