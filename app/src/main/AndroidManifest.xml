@@ -105,6 +105,8 @@
         <activity android:name="com.hr.toy.design.dagger.DaggerActivity" />
 
         <activity android:name=".design.sqlbrite.SqlbriteMainActivity" />
+
+        <activity android:name=".design.jobscheduler.JobSchedulerTestActivity" />
     </application>
 
 </manifest>

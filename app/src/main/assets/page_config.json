@@ -78,6 +78,10 @@
       {
         "title": "Sqlbrite",
         "pageClass": "com.hr.toy.design.sqlbrite.SqlbriteMainActivity"
+      },
+      {
+        "title": "JobScheduler",
+        "pageClass": "com.hr.toy.design.jobscheduler.JobSchedulerTestActivity"
       }
     ]
   },

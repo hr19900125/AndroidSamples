@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/et_delay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Delay 时间" />
+
+    <EditText
+        android:id="@+id/et_deadline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="最长的截止时间" />
+
+    <EditText
+        android:id="@+id/et_duration_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Duration Time" />
+
+    <RadioGroup
+        android:id="@+id/rbg_wifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_wifi_con"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wifi连接" />
+
+        <RadioButton
+            android:id="@+id/rb_wifi_discon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="不需要" />
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/rbg_any_con"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_any_con"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="有网络连接" />
+
+        <RadioButton
+            android:id="@+id/rb_any_discon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="不需要" />
+
+    </RadioGroup>
+
+    <CheckBox
+        android:id="@+id/cb_requires_charging"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="充电状态" />
+
+    <CheckBox
+        android:id="@+id/cb_requires_idle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="是否设备空闲" />
+
+    <Button
+        android:id="@+id/begin_job"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开始任务" />
+
+    <Button
+        android:id="@+id/stop_all_job"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="结束所有任务" />
+
+</LinearLayout>
