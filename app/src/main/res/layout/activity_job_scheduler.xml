@@ -86,4 +86,21 @@
         android:layout_height="wrap_content"
         android:text="结束所有任务" />
 
+    <TextView
+        android:id="@+id/onstart_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Job开始了"/>
+
+    <TextView
+        android:id="@+id/onstop_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Job结束了"/>
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
