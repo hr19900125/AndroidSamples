@@ -50,13 +50,13 @@
 
         <RadioButton
             android:id="@+id/rb_any_con"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="有网络连接" />
 
         <RadioButton
             android:id="@+id/rb_any_discon"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="不需要" />
 

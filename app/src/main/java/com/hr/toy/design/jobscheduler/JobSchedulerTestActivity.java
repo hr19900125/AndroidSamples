@@ -14,6 +14,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -152,6 +153,7 @@ public class JobSchedulerTestActivity extends AppCompatActivity {
         // 开始调度定义的job
         //mJobScheduler.schedule(builder.build())会返回一个int类型的数据
         //如果schedule方法失败了，它会返回一个小于0的错误码。否则它会返回我们在JobInfo.Builder中定义的标识id。
+        Log.e("Time", "scheduleJob = " + System.currentTimeMillis());
         mJobScheduler.schedule(builder.build());
 
     }
@@ -240,7 +242,7 @@ public class JobSchedulerTestActivity extends AppCompatActivity {
                 return;
             }
             String jobIdText = String.valueOf(jobId);
-            paramsTextView.setText(String.format("Job ID %s %s", jobIdText, action));
+            paramsTextView.append(String.format("Job ID %s %s", jobIdText, action));
         }
 
         private int getColor(@ColorRes int color) {

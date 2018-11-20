@@ -8,14 +8,13 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import timber.log.Timber;
 
 import static com.hr.toy.design.jobscheduler.JobSchedulerTestActivity.MESSENGER_INTENT_KEY;
 import static com.hr.toy.design.jobscheduler.JobSchedulerTestActivity.MSG_JOB_START;
 import static com.hr.toy.design.jobscheduler.JobSchedulerTestActivity.MSG_JOB_STOP;
-import static com.hr.toy.design.jobscheduler.JobSchedulerTestActivity.MSG_ONJOB_START;
-import static com.hr.toy.design.jobscheduler.JobSchedulerTestActivity.MSG_ONJOB_STOP;
 import static com.hr.toy.design.jobscheduler.JobSchedulerTestActivity.WORK_DURATION_KEY;
 
 public class MyJobService extends JobService {
@@ -50,6 +49,7 @@ public class MyJobService extends JobService {
         // 返回false，任务运行不需要很长时间，到return时已完成任务处理
         // The work that this service "does" is simply wait for a certain duration and finish
         // the job (on another thread).
+        Log.e("Time", "onStartJob = " + System.currentTimeMillis());
 
         // 该服务做的工作只是等待一定的持续时间并完成作业（在另一个线程上）。
         sendMessage(MSG_JOB_START, params.getJobId());
