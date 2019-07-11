@@ -166,6 +166,10 @@
       {
         "title": "Zoom ImageView",
         "pageClass": "com.hr.toy.widget.ZoomImageViewActivity"
+      },
+      {
+        "title": "RoundFrameLayout",
+        "pageClass": "com.hr.toy.widget.RoundFrameLayoutActivity"
       }
     ]
   },
