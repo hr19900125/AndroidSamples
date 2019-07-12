@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
@@ -57,4 +59,10 @@ dependencies {
 
     implementation rootProject.ext.sqlbrite
     implementation rootProject.ext.supportSqliteFramework
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation rootProject.ext.imageLoader
+}
+repositories {
+    mavenCentral()
 }

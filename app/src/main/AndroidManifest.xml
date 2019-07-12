@@ -70,6 +70,7 @@
         <activity android:name=".widget.SwipeRefreshLayoutExampleActivity" />
         <activity android:name=".widget.WaterRippleViewActivity" />
         <activity android:name=".widget.RoundFrameLayoutActivity" />
+        <activity android:name=".widget.WrapContentViewPagerActivity" />
         <activity
             android:name=".widget.ZoomImageViewActivity"
             android:theme="@style/AppTheme.NoActionBar" />
