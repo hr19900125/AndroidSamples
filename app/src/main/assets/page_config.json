@@ -10,6 +10,10 @@
       {
         "title": "监听网络状态变化",
         "pageClass": "com.hr.toy.codesnippet.NetworkStateChangeActivity"
+      },
+      {
+        "title": "调用图库/相机",
+        "pageClass": "com.hr.toy.codesnippet.PickImageActivity"
       }
     ]
   },
