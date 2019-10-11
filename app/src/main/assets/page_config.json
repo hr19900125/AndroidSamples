@@ -1,5 +1,15 @@
 [
   {
+    "name": "Kotlin",
+    "fragmentClass": "com.hr.toy.SubjectFragment",
+    "pages": [
+      {
+        "title": "Hello world",
+        "pageClass": "com.hr.toy.kotlin.HelloWorld"
+      }
+    ]
+  },
+  {
     "name": "Code snippet",
     "fragmentClass": "com.hr.toy.SubjectFragment",
     "pages": [
