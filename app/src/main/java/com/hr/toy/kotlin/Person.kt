@@ -19,9 +19,9 @@ open class Person(city : String){
         this.city = city
     }
 
-    private lateinit var wife: Woman
+    lateinit var wife: Woman
 
-    fun marry() {
+    open fun marry() {
         wife = Woman("西安")
     }
 

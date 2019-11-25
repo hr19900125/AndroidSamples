@@ -29,6 +29,7 @@ class HelloWorld : Activity() {
         labelTest()
         initTest()
         classTest()
+        extendFunTest()
     }
 
     fun printDivider() {
@@ -129,4 +130,15 @@ class HelloWorld : Activity() {
             }
         })
     }
+
+    fun Person.sayHello() {
+        Log.e(TAG, "hello !!!!")
+    }
+
+    private fun extendFunTest() {
+        printDivider()
+        var p = Person("HK")
+        p.sayHello()
+    }
+
 }
