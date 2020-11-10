@@ -7,9 +7,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
 import timber.log.Timber;
 
 import static com.hr.toy.design.jobscheduler.JobSchedulerTestActivity.MESSENGER_INTENT_KEY;

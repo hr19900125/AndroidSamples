@@ -1,12 +1,12 @@
 package com.hr.toy.design.dagger;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import com.hr.toy.R;
 import javax.inject.Inject;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import timber.log.Timber;
 
 public class DaggerActivity extends AppCompatActivity {

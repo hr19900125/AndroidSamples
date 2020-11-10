@@ -1,9 +1,10 @@
 package com.hr.toy.widget.custom;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.hr.toy.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * 自定义View，主要是了解如何自定义view和attr，并且获取layout中的attr

@@ -6,12 +6,13 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.hr.toy.R;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 /**
  *

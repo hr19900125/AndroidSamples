@@ -10,9 +10,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.PersistableBundle;
-import android.support.annotation.ColorRes;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +24,9 @@ import com.hr.toy.R;
 
 import java.lang.ref.WeakReference;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;

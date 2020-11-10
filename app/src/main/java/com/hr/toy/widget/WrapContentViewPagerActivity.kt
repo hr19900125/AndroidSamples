@@ -2,15 +2,15 @@ package com.hr.toy.widget
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import com.hr.toy.R
 import com.hr.toy.widget.wcvp.ObjectAtPositionPagerAdapter
 import com.nostra13.universalimageloader.core.ImageLoader
@@ -52,8 +52,8 @@ class WrapContentViewPagerActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val id = item!!.itemId
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
         //noinspection SimplifiableIfStatement
         when (id) {
             R.id.action_textviews -> {

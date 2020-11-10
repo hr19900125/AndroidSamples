@@ -3,8 +3,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.1"
 
     defaultConfig {
         applicationId "com.hr.toy"
@@ -57,11 +57,12 @@ dependencies {
     annotationProcessor rootProject.ext.autoValue
     annotationProcessor rootProject.ext.autoValueParcel
 
-    implementation rootProject.ext.sqlbrite
     implementation rootProject.ext.supportSqliteFramework
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation rootProject.ext.imageLoader
+
+    implementation rootProject.ext.swiperefreshlayout
 }
 repositories {
     mavenCentral()

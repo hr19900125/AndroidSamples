@@ -2,12 +2,9 @@ package com.hr.toy.router;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.StringDef;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 

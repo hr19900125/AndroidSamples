@@ -2,12 +2,6 @@ package com.hr.toy;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -15,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hr.toy.router.Subject;
@@ -22,6 +17,12 @@ import com.hr.toy.utils.FileUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 public class HomeActivity extends AppCompatActivity implements BaseFragment.OnSelectedFragmentDelegate {
 

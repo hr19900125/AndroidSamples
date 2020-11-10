@@ -1,7 +1,6 @@
 package com.hr.toy.webview;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
@@ -12,6 +11,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.hr.toy.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2013/1010/1569.html

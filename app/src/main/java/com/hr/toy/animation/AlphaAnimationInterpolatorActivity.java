@@ -1,8 +1,6 @@
 package com.hr.toy.animation;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
@@ -18,6 +16,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.hr.toy.R;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  *

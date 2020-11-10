@@ -1,8 +1,6 @@
 package com.hr.toy.animation;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,6 +10,9 @@ import com.hr.toy.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * XML 实现LayoutAnimation

@@ -2,7 +2,6 @@ package com.hr.toy.widget;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,8 @@ import com.hr.toy.BaseFragment;
 import com.hr.toy.R;
 import com.hr.toy.widget.custom.CustomViewActivity;
 import com.hr.toy.widget.custom.CustomViewActivity2;
+
+import androidx.annotation.Nullable;
 
 /**
  */

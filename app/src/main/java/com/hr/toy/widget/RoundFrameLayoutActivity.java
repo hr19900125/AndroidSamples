@@ -1,10 +1,11 @@
 package com.hr.toy.widget;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import com.hr.toy.R;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class RoundFrameLayoutActivity extends AppCompatActivity {
 

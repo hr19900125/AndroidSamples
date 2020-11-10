@@ -2,7 +2,6 @@ package com.hr.toy.rxjava;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,8 @@ import android.widget.ListView;
 
 import com.hr.toy.BaseFragment;
 import com.hr.toy.R;
+
+import androidx.annotation.Nullable;
 
 /**
  *

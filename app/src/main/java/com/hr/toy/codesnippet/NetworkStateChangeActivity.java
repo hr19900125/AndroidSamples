@@ -9,11 +9,12 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
 import com.hr.toy.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  *

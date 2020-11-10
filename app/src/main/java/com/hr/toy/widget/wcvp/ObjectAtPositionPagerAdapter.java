@@ -23,9 +23,10 @@ package com.hr.toy.widget.wcvp;
  * THE SOFTWARE.
  */
 
-import android.support.v4.view.PagerAdapter;
 import android.util.SparseArray;
 import android.view.ViewGroup;
+
+import androidx.viewpager.widget.PagerAdapter;
 
 /**
  * Simple implementation of @see ObjectAtPositionInterface can be extended by any custom adapter
