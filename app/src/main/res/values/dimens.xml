@@ -9,4 +9,12 @@
     <dimen name="ip_text_size">9.6sp</dimen>
     <dimen name="ip_text_x_position">217dip</dimen>
     <dimen name="ip_text_y_position">122dip</dimen>
+
+    <!-- for LoadingTextView -->
+    <dimen name="down_load_text_size">12sp</dimen>
+    <dimen name="down_load_dot_size">12sp</dimen>
+    <dimen name="down_dot_radius">1dp</dimen>
+    <dimen name="down_dot_gap">3dp</dimen>
+    <dimen name="down_dot_translate">4dp</dimen>
+    <dimen name="error_icon_margin">7dp</dimen>
 </resources>

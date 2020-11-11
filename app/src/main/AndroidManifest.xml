@@ -76,6 +76,8 @@
             android:name=".widget.ZoomImageViewActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity android:name=".widget.LoadingTextViewActivity"/>
+
         <activity android:name=".animation.AlphaAnimationExampleActivity" />
         <activity android:name=".animation.ScaleAnimationExampleActivity" />
         <activity android:name=".animation.TranslateAnimationExampleActivity" />

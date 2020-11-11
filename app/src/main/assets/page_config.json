@@ -184,6 +184,10 @@
       {
         "title": "WrapContentViewPagerActivity",
         "pageClass": "com.hr.toy.widget.WrapContentViewPagerActivity"
+      },
+      {
+        "title": "LoadingTextViewActivity",
+        "pageClass": "com.hr.toy.widget.LoadingTextViewActivity"
       }
     ]
   },

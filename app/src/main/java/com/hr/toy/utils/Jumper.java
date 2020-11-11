@@ -3,6 +3,7 @@ package com.hr.toy.utils;
 import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 
 public class Jumper {
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.hr.toy.widget.common.LoadingTextView
+        android:layout_marginTop="220dp"
+        android:id="@+id/loading_text_view"
+        app:mcLoadingText="正在加载"
+        app:mcErrorText="加载异常"
+        android:layout_width="match_parent"
+        android:layout_height="54.7dp" />
+
+</LinearLayout>

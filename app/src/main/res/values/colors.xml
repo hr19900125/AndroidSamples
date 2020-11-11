@@ -5,4 +5,11 @@
     <color name="colorAccent">#FF4081</color>
     <color name="primary_light">#B2DFDB</color>
     <color name="black">#FFFFFF</color>
+
+    <!-- for LoadingTextView -->
+    <color name="down_load_text_color">#66000000</color>
+    <color name="down_load_dot_color">#999999</color>
+
+    <!-- 用于列表项点击保持的背景 -->
+    <color name="list_hovered_background">#0a000000</color>
 </resources>
