@@ -17,4 +17,7 @@
     <dimen name="down_dot_gap">3dp</dimen>
     <dimen name="down_dot_translate">4dp</dimen>
     <dimen name="error_icon_margin">7dp</dimen>
+
+    <dimen name="mcLoadingRadius">8.5dip</dimen>
+    <dimen name="mcRingWidth">3.4dip</dimen>
 </resources>

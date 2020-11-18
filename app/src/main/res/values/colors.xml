@@ -10,6 +10,43 @@
     <color name="down_load_text_color">#66000000</color>
     <color name="down_load_dot_color">#999999</color>
 
+    <color name="transparent25">#40000000</color>
+
     <!-- 用于列表项点击保持的背景 -->
     <color name="list_hovered_background">#0a000000</color>
+
+    <color name="Blue_1">#E1F1FF</color>
+    <color name="Blue_2">#BBDAFE</color>
+    <color name="Blue_3">#81BDFD</color>
+    <color name="Blue_4">#5AA1FC</color>
+    <color name="Blue_5">#3C90FC</color>
+    <color name="Blue_6">#1F7FFB</color>
+    <color name="Blue_7">#1E76F0</color>
+    <color name="Blue_8">#1D6DE4</color>
+    <color name="Blue_9">#1D65D9</color>
+    <color name="Blue_10">#1853C2</color>
+
+    <!-- 6级色 -->
+    <color name="mz_theme_color_blue">@color/Blue_6</color>
+    <!-- 50%主题色 -->
+    <color name="mz_theme_color_blue_more_pressed">#801F7FFB</color>
+    <!-- 不可点击颜色 -->
+    <color name="mz_theme_color_blue_disabled">#401F7FFB</color>
+    <!-- 9级色 -->
+    <color name="mz_theme_color_blue_pressed">@color/Blue_9</color>
+    <!-- 文本按压 -->
+    <color name="mz_theme_color_blue_text_pressed">#801F7FFB</color>
+    <!-- 20%主题色 -->
+    <color name="mz_highlighted_text_light_color_blue">#331F7FFB</color>
+    <!-- 50%主题色 -->
+    <color name="mz_theme_color_blue_dark">#801F7FFB</color>
+    <!-- 按钮的按压使用7级色 -->
+    <color name="mz_theme_color_blue_button_pressed">@color/Blue_7</color>
+
+
+    <!--for LoadingView -->
+    <color name="mc_loading_view_background_light">#19000000</color>
+    <color name="mc_loading_view_background_dark">#19ffffff</color>
+    <color name="mc_loading_view_text_light">#66000000</color>
+    <color name="mc_loading_view_text_dark">#7fffffff</color>
 </resources>

@@ -3,6 +3,9 @@
 
     <declare-styleable name="AppTheme" >
         <attr name="MeizuCommon.LoadingTextStyle" format="reference" />
+        <!-- loadingview style -->
+        <attr name="MeizuCommon.LoadingViewStyle" format="reference" />
+        <attr name="MeizuCommon.LoadingStyle" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="CircleImageView">
@@ -37,4 +40,44 @@
         <attr name="mcDotColor" format="integer" />
         <attr name="mcDotNum" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="MZTheme">
+        <attr name="mzThemeColor" format="color|reference" />
+        <attr name="mzThemeColorMoreClick" format="reference|color" />
+        <attr name="mzAlertDialogTheme" format="reference" />
+        <!-- 用于定义搜索栏editText样式-->
+        <attr name="mzSearchEditTextStyle" format="reference" />
+        <!-- 用于定义搜索栏搜索图标样式-->
+        <attr name="mzSearchEditSearchIconStyle" format="reference" />
+        <!-- 用于定义搜索栏清除图标样式-->
+        <attr name="mzSearchEditClearIconStyle" format="reference" />
+        <!-- 用于定义搜索栏语音图标样式-->
+        <attr name="mzSearchEditVoiceIconStyle" format="reference" />
+        <!-- 用于定义搜索框按钮颜色样式-->
+        <attr name="mzSearchButtonStyle" format="reference" />
+        <!-- 用于定义主题色的色阶颜色-->
+        <attr name="mzThemeColorLevel1" format="reference|color" />
+        <attr name="mzThemeColorLevel2" format="reference|color" />
+        <attr name="mzThemeColorLevel3" format="reference|color" />
+        <attr name="mzThemeColorLevel4" format="reference|color" />
+        <attr name="mzThemeColorLevel5" format="reference|color" />
+        <attr name="mzThemeColorLevel6" format="reference|color" />
+        <attr name="mzThemeColorLevel7" format="reference|color" />
+        <attr name="mzThemeColorLevel8" format="reference|color" />
+        <attr name="mzThemeColorLevel9" format="reference|color" />
+        <attr name="mzThemeColorLevel10" format="reference|color" />
+    </declare-styleable>
+
+    <!-- used by loadingview -->
+    <declare-styleable name="LoadingView">
+        <attr name="mcLoadingRadius" format="dimension" />
+        <attr name="mcRingWidth" format="dimension" />
+        <attr name="mcLBackground" format="color" />
+        <attr name="mcLForeground" format="color" />
+        <attr name="mcLBackDrawable" format="reference" />
+        <attr name="mcLFinishDrawable" format="reference" />
+        <attr name="mcLText" format="string" />
+        <attr name="mcLoadingState" format="integer" />
+    </declare-styleable>
+
 </resources>

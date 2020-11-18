@@ -2,8 +2,6 @@ package com.hr.toy.widget;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PersistableBundle;
-import android.util.Log;
 
 import com.hr.toy.R;
 import com.hr.toy.widget.common.LoadingTextView;

@@ -34,4 +34,28 @@
         <item name="android:layout_gravity">right|bottom</item>
     </style>
 
+    <style name="Widget.MeizuCommon" parent="@android:style/Widget.DeviceDefault"></style>
+
+    <!--Style for LoadingView-->
+    <style name="Widget.MeizuCommon.LoadingView">
+        <item name="mcLoadingRadius">@dimen/mcLoadingRadius</item>
+        <item name="mcRingWidth">@dimen/mcRingWidth</item>
+    </style>
+
+    <!--LoadingView样式,浅色背景时使用(默认)-->
+    <style name="Widget.MeizuCommon.LoadingView.Light">
+        <!--<item name="mcLBackground">@color/mc_loading_view_background_light</item>-->
+    </style>
+
+    <style name="LoadingViewTextStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!--LoadingView文字样式,浅色背景时使用-->
+    <style name="LoadingViewTextStyle.Light">
+        <item name="android:textColor">@color/mc_loading_view_text_light</item>
+    </style>
+
 </resources>

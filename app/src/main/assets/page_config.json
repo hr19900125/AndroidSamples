@@ -188,6 +188,10 @@
       {
         "title": "LoadingTextViewActivity",
         "pageClass": "com.hr.toy.widget.LoadingTextViewActivity"
+      },
+      {
+        "title": "LoadDataViewActivity",
+        "pageClass": "com.hr.toy.widget.LoadDataViewActivity"
       }
     ]
   },
